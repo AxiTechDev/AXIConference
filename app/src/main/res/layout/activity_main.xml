@@ -1,0 +1,93 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <!--<TextView
+        android:text="@string/hello_world"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" /> -->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:id="@+id/share_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="emailShare"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView2"
+        android:src="@drawable/axi_top_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+<!--
+    <TextSwitcher
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textSwitcher"
+        android:layout_above="@+id/share_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="80dp"
+        android:animateFirstView="true" />
+-->
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/learnpadsdxbundle"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/imageView2"
+        android:layout_centerHorizontal="true" />
+
+    <ViewFlipper
+        android:id="@+id/viewFlipper1"
+        android:autoStart="true"
+        android:flipInterval="4000"
+        android:layout_above="@+id/share_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="70dp"
+        android:layout_centerHorizontal="true">
+
+        <TextView
+            android:id="@+id/one_textview"
+            android:lines="4"
+            android:singleLine="false"
+            android:text="@string/the_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="24sp"/>
+
+
+        <TextView
+            android:id="@+id/two_textview"
+            android:text="This product is GREAT!! \nOf course you want the product!"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_below="@+id/imageView"
+            android:singleLine="false"
+            android:lines="3"
+            android:gravity="center"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/three_textview"
+            android:text="BUY THIS PRODUCT!!!!! \nNOW!!!"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="24sp" />
+
+    </ViewFlipper>
+
+</RelativeLayout>
