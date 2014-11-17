@@ -10,6 +10,13 @@ import android.widget.Button;
 
 import static today.theworldover.axiconference.R.id.share_button;
 
+/*
+ * Steps to using the DB:
+ * 1. [DONE] Instantiate the DB Adapter
+ * 2. [DONE] Open the DB
+ * 3. use get, insert, delete, .. to change data.
+ * 4. [DONE]Close the DB
+ */
 
 public class MainActivity extends Activity {
 
@@ -19,7 +26,8 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-/*
+
+       /*
         share = (Button) findViewById(share_button);
         share.setOnClickListener(new View.OnClickListener() {
 
@@ -29,7 +37,6 @@ public class MainActivity extends Activity {
         });
 */
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -53,5 +60,10 @@ public class MainActivity extends Activity {
     public void emailShare(View view) {
         Intent intent = new Intent(this, EmailScreen.class);
         startActivity(intent);
+    }
+
+    public void seeRecord(View view) {
+        Intent intentRec = new Intent(this, SeeRecords.class);
+        startActivity(intentRec);
     }
 }

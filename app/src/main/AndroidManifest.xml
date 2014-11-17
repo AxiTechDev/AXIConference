@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".EmailScreen" android:label="Email"> </activity>
+        <activity android:name=".SeeRecords" android:label="Records"> </activity>
     </application>
 
 </manifest>
