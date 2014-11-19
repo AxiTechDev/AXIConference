@@ -13,24 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" /> -->
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Share"
-        android:id="@+id/share_button"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:onClick="emailShare"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Record"
-        android:id="@+id/record"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:onClick="seeRecord"/>
-
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,17 +20,81 @@
         android:src="@drawable/axi_top_logo"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
-<!--
-    <TextSwitcher
+
+
+    <ViewFlipper
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textSwitcher"
-        android:layout_above="@+id/share_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="80dp"
-        android:animateFirstView="true" />
--->
-    <ImageView
+        android:id="@+id/view_flipper"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/axi_top_logo"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/learnpadsdxbundle"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hey"/>
+
+        </LinearLayout>
+
+    </ViewFlipper>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:id="@+id/share_button"
+        android:onClick="emailShare"
+        android:layout_above="@+id/record"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Record"
+        android:id="@+id/record"
+        android:layout_alignParentBottom="true"
+        android:onClick="seeRecord"/>
+
+
+    <!--
+        <TextSwitcher
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textSwitcher"
+            android:layout_above="@+id/share_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="80dp"
+            android:animateFirstView="true" />
+    -->
+    <!--<ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_marginTop="20dp"
@@ -97,6 +143,6 @@
             android:gravity="center"
             android:textSize="24sp" />
 
-    </ViewFlipper>
+    </ViewFlipper>-->
 
 </RelativeLayout>

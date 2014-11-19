@@ -18,17 +18,19 @@ import static today.theworldover.axiconference.DBAdapter.COL_ROWID;
 public class EmailScreen extends Activity{
 
     DBAdapter myDb;
+    EditText edtTextName;
+    EditText edtTextEmail;
     //SeeRecords recSet;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.email_screen);
 
-        EditText edtTextName = (EditText) findViewById(R.id.name);
-        EditText edtTextEmail = (EditText) findViewById(R.id.email_address);
+        edtTextName = (EditText) findViewById(R.id.name);
+        edtTextEmail = (EditText) findViewById(R.id.email_address);
 
-        String name = edtTextName.getText().toString();
-        String email = edtTextEmail.getText().toString();
+        //String name = edtTextName.getText().toString();
+       // String email = edtTextEmail.getText().toString();
 
         openDB();
     }
@@ -58,22 +60,25 @@ public class EmailScreen extends Activity{
 
     public void AddRecord() {
         //displayText("Clicked add record!");
-        EditText edtTextName = (EditText) findViewById(R.id.name);
-        EditText edtTextEmail = (EditText) findViewById(R.id.email_address);
+        //EditText edtTextName = (EditText) findViewById(R.id.name);
+        //EditText edtTextEmail = (EditText) findViewById(R.id.email_address);
         String name = edtTextName.getEditableText().toString();
         String email = edtTextEmail.getEditableText().toString();
         int rate = 3;
 
         long newId = myDb.insertRow(name, email, rate);
 
+        String thisEntry = "Record " + newId + " Name: " + name + " Email: " + email + " Arbitrary rating: " + rate;
+        Log.v("Hey billyyy", "" + thisEntry);
+
         // Query for the record we just added.
         // Use the ID:
         Cursor cursor = myDb.getRow(newId);
-        displayRecordSet(cursor);
+        //displayRecordSet(cursor);
     }
 
     //this is a test
-    private void displayText(String message) {
+    /*private void displayText(String message) {
         TextView textView = (TextView) findViewById(R.id.textDisplay);
         textView.setText(message);
     }
@@ -106,6 +111,6 @@ public class EmailScreen extends Activity{
         cursor.close();
 
         displayText(message);
-    }
+    }*/
 
 }
