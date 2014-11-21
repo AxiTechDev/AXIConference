@@ -1,14 +1,19 @@
 package today.theworldover.axiconference;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 import static today.theworldover.axiconference.DBAdapter.COL_ROWID;
 
@@ -30,9 +35,45 @@ public class EmailScreen extends Activity{
         edtTextEmail = (EditText) findViewById(R.id.email_address);
 
         //String name = edtTextName.getText().toString();
-       // String email = edtTextEmail.getText().toString();
-
+        //String email = edtTextEmail.getText().toString();
+        Button submit = (Button) findViewById(R.id.submit_button);
         openDB();
+        submit.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                sendEmail();
+                // after sending the email, clear the fields
+                edtTextName.setText("");
+                edtTextEmail.setText("");
+
+                AddRecord();
+                finish();
+            }
+        });
+
+
+
+    }
+
+    protected void sendEmail() {
+        String[] recipient = {edtTextEmail.getText().toString() };
+        File fileLocation = new File ("/mnt/sdcard/Pictures/puffin6.jpg");
+        Uri U = Uri.fromFile(fileLocation);
+        Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+        email.setType("message/jpg");
+
+        email.putExtra(Intent.EXTRA_EMAIL, recipient);
+        email.putExtra(Intent.EXTRA_SUBJECT, "Its that thing you were looking for...");
+        email.putExtra(Intent.EXTRA_TEXT, "Hey hey, I can't believe it worked!/n/n");
+        email.putExtra(Intent.EXTRA_STREAM, U);
+
+        Log.i("Finished sending email...", "");
+        try {
+            startActivity(Intent.createChooser(email, "Choose an email client from..."));
+        } catch (ActivityNotFoundException ex) {
+            Toast.makeText(EmailScreen.this, "No email client found.", Toast.LENGTH_LONG).show();
+        }
+        Toast.makeText(EmailScreen.this, getString(R.string.thank_you), Toast.LENGTH_LONG).show();
     }
 
     protected void onDestroy() {
@@ -51,6 +92,27 @@ public class EmailScreen extends Activity{
 
     public void submit_it(View view) {
         AddRecord();
+
+        String name = edtTextName.getEditableText().toString();
+        String email = edtTextEmail.getEditableText().toString();
+
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+
+        emailIntent.setData(Uri.parse("mailto:"));
+        emailIntent.setType("text/plain");
+
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "that thing you wanted");
+        emailIntent.putExtra(Intent.EXTRA_TEXT, "Hey there, I can't believe it worked!" );
+
+        try {
+            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
+            //finish();
+            Log.i("Finished sending email...", "");
+        } catch (android.content.ActivityNotFoundException ex) {
+            Toast.makeText(EmailScreen.this,
+                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
+        }
 
         Toast.makeText(EmailScreen.this, getString(R.string.thank_you), Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);

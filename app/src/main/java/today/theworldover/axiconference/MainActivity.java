@@ -120,4 +120,9 @@ public class MainActivity extends Activity {
         Intent intentRec = new Intent(this, SeeRecords.class);
         startActivity(intentRec);
     }
+
+    public void contest(View view) {
+        Intent intentContest = new Intent(this, CameraAPI.class);
+        startActivity(intentContest);
+    }
 }

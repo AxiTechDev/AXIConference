@@ -91,7 +91,7 @@
         android:id="@+id/submit_button"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="submit_it"/>
+       /> <!--android:onClick="submit_it"/>-->
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -99,6 +99,7 @@
         android:id="@+id/ratingBar"
         android:layout_below="@+id/textView2"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="43dp" />
+        android:layout_marginTop="43dp"
+        android:stepSize="1"/>
 
 </RelativeLayout>

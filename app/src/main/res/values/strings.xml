@@ -14,5 +14,6 @@
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="submit_it">Submit</string>
+    <string name="btnTxt">Take Photo</string>
 
 </resources>
