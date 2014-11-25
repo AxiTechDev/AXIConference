@@ -14,6 +14,8 @@
     <string name="email">Email</string>
     <string name="name">Name</string>
     <string name="submit_it">Submit</string>
-    <string name="btnTxt">Take Photo</string>
+    <string name="btnTxt">TAKE PHOTO</string>
+    <string name="accept">ACCEPT</string>
+    <string name="contestText">To enter yourself for a chance to win (stuff?), just snap a pic of your badge. Then just hit \'Enter\' or \'Take Photo\' to retake.</string>
 
 </resources>

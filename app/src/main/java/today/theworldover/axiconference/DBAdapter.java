@@ -31,21 +31,23 @@ public class DBAdapter {
 	// TODO: Setup your fields here:
 	public static final String KEY_NAME = "name";
 	public static final String KEY_EMAIL = "email";
+    public static final String KEY_GRADE = "grade";
 	public static final String KEY_RATING = "rating";
 
 	// TODO: Setup your field numbers here (0 = KEY_ROWID, 1=...)
 	public static final int COL_NAME = 1;
 	public static final int COL_EMAIL = 2;
-	public static final int COL_RATING = 3;
+    public static final int COL_GRADE = 3;
+	public static final int COL_RATING = 4;
 
 	
-	public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME, KEY_EMAIL, KEY_RATING};
+	public static final String[] ALL_KEYS = new String[] {KEY_ROWID, KEY_NAME, KEY_EMAIL, KEY_GRADE, KEY_RATING};
 	
 	// DB info: it's name, and the table we are using (just one).
 	public static final String DATABASE_NAME = "MyDb";
 	public static final String DATABASE_TABLE = "mainTable";
 	// Track DB version if a new version of your app changes the format.
-	public static final int DATABASE_VERSION = 2;	
+	public static final int DATABASE_VERSION = 3;
 	
 	private static final String DATABASE_CREATE_SQL = 
 			"create table " + DATABASE_TABLE 
@@ -62,8 +64,9 @@ public class DBAdapter {
 			//  - "not null" means it is a required field (must be given a value).
 			// NOTE: All must be comma separated (end of line!) Last one must have NO comma!!
 			+ KEY_NAME + " text not null, "
-			+ KEY_EMAIL + " integer not null, "
-			+ KEY_RATING + " string not null"
+			+ KEY_EMAIL + " string not null, "
+            + KEY_GRADE + " string not null, "
+			+ KEY_RATING + " integer not null"
 			
 			// Rest  of creation:
 			+ ");";
@@ -95,7 +98,7 @@ public class DBAdapter {
 	}
 	
 	// Add a new set of values to the database.
-	public long insertRow(String name, String email, int rating) {
+	public long insertRow(String name, String email, String grade, float rating) {
 		/*
 		 * CHANGE 3:
 		 */		
@@ -105,6 +108,7 @@ public class DBAdapter {
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(KEY_NAME, name);
 		initialValues.put(KEY_EMAIL, email);
+        initialValues.put(KEY_GRADE, grade);
 		initialValues.put(KEY_RATING, rating);
 		
 		// Insert it into the database.
@@ -151,7 +155,7 @@ public class DBAdapter {
 	}
 	
 	// Change an existing row to be equal to new data.
-	public boolean updateRow(long rowId, String name, String email, int rating) {
+	public boolean updateRow(long rowId, String name, String email, String grade, float rating) {
 		String where = KEY_ROWID + "=" + rowId;
 
 		/*
@@ -163,6 +167,7 @@ public class DBAdapter {
 		ContentValues newValues = new ContentValues();
 		newValues.put(KEY_NAME, name);
 		newValues.put(KEY_EMAIL, email);
+        newValues.put(KEY_GRADE, grade);
 		newValues.put(KEY_RATING, rating);
 		
 		// Insert it into the database.

@@ -6,16 +6,17 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
-
-import static today.theworldover.axiconference.DBAdapter.COL_ROWID;
 
 /**
  * Created by william on 11/12/14.
@@ -25,6 +26,8 @@ public class EmailScreen extends Activity{
     DBAdapter myDb;
     EditText edtTextName;
     EditText edtTextEmail;
+    String grade;
+    RatingBar mRate;
     //SeeRecords recSet;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public class EmailScreen extends Activity{
 
         edtTextName = (EditText) findViewById(R.id.name);
         edtTextEmail = (EditText) findViewById(R.id.email_address);
+        mRate = (RatingBar) findViewById(R.id.ratingBar);
 
         //String name = edtTextName.getText().toString();
         //String email = edtTextEmail.getText().toString();
@@ -41,41 +45,82 @@ public class EmailScreen extends Activity{
         submit.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                sendEmail();
+                //sendEmail();
+                AddRecord();
                 // after sending the email, clear the fields
                 edtTextName.setText("");
                 edtTextEmail.setText("");
 
-                AddRecord();
+                Toast.makeText(EmailScreen.this, getString(R.string.thank_you), Toast.LENGTH_LONG).show();
+                Cursor cursor = myDb.getAllRows();
+                displayRecordSet(cursor);
                 finish();
             }
         });
 
-
-
     }
 
-    protected void sendEmail() {
-        String[] recipient = {edtTextEmail.getText().toString() };
-        File fileLocation = new File ("/mnt/sdcard/Pictures/puffin6.jpg");
-        Uri U = Uri.fromFile(fileLocation);
-        Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
-        email.setType("message/jpg");
+    public void onRadioButtonClicked(View view) {
+        boolean checked = ((RadioButton) view).isChecked();
 
-        email.putExtra(Intent.EXTRA_EMAIL, recipient);
-        email.putExtra(Intent.EXTRA_SUBJECT, "Its that thing you were looking for...");
-        email.putExtra(Intent.EXTRA_TEXT, "Hey hey, I can't believe it worked!/n/n");
-        email.putExtra(Intent.EXTRA_STREAM, U);
-
-        Log.i("Finished sending email...", "");
-        try {
-            startActivity(Intent.createChooser(email, "Choose an email client from..."));
-        } catch (ActivityNotFoundException ex) {
-            Toast.makeText(EmailScreen.this, "No email client found.", Toast.LENGTH_LONG).show();
+        //Check which radio button is checked
+        switch(view.getId()) {
+            case R.id.rbk:
+                if (checked) { grade = "Kindergarten";} break;
+            case R.id.rb1:
+                if (checked) { grade = "1st";} break;
+            case R.id.rb2:
+                if (checked) { grade = "2nd";} break;
+            case R.id.rb3:
+                if (checked) { grade = "3rd";} break;
+            case R.id.rb4:
+                if (checked) { grade = "4th"; } break;
+            case R.id.rb5:
+                if (checked) { grade = "5th";} break;
+            case R.id.rb6:
+                if (checked) { grade = "6th";} break;
+            case R.id.rb7:
+                if (checked) { grade = "7th";} break;
+            case R.id.rb8:
+                if (checked) { grade = "8th";} break;
+            case R.id.rb9:
+                if (checked) { grade = "9th";} break;
+            case R.id.rb10:
+                if (checked) { grade = "10th"; } break;
+            case R.id.rb11:
+                if (checked) { grade = "11th";} break;
+            case R.id.rb12:
+                if (checked) { grade = "12th";} break;
+            default:
+                grade = "Not Specified";
+                break;
         }
-        Toast.makeText(EmailScreen.this, getString(R.string.thank_you), Toast.LENGTH_LONG).show();
     }
 
+//    protected void sendEmail() {
+//        String[] recipient = {edtTextEmail.getText().toString() };
+//
+//        File fileLocation = new File (Environment.getExternalStorageDirectory(), "/mnt/external_sd/file.txt");
+//        Uri U = Uri.fromFile(fileLocation);
+//        Intent email = new Intent(Intent.ACTION_SEND, Uri.parse("mailto:"));
+//        email.setType("text/plain");
+//
+//        email.putExtra(Intent.EXTRA_EMAIL, recipient);
+//        email.putExtra(Intent.EXTRA_SUBJECT, "Its that thing you were looking for...");
+//        email.putExtra(Intent.EXTRA_TEXT, "Hey hey, I can't believe it worked!/n/n");
+//        email.putExtra(Intent.EXTRA_STREAM, U);
+//
+//
+//        try {
+//            startActivity(Intent.createChooser(email, "Choose an email client from..."));
+//        } catch (ActivityNotFoundException ex) {
+//            Toast.makeText(EmailScreen.this, "No email client found.", Toast.LENGTH_LONG).show();
+//        }
+//        Toast.makeText(EmailScreen.this, getString(R.string.thank_you), Toast.LENGTH_LONG).show();
+//        Log.i("Finished sending email...", "");
+//    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         closeDB();
@@ -90,35 +135,7 @@ public class EmailScreen extends Activity{
         myDb.close();
     }
 
-    public void submit_it(View view) {
-        AddRecord();
 
-        String name = edtTextName.getEditableText().toString();
-        String email = edtTextEmail.getEditableText().toString();
-
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "that thing you wanted");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Hey there, I can't believe it worked!" );
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            //finish();
-            Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(EmailScreen.this,
-                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
-
-        Toast.makeText(EmailScreen.this, getString(R.string.thank_you), Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        //onStop();
-        startActivity(intent);
-    }
 
     public void AddRecord() {
         //displayText("Clicked add record!");
@@ -126,24 +143,27 @@ public class EmailScreen extends Activity{
         //EditText edtTextEmail = (EditText) findViewById(R.id.email_address);
         String name = edtTextName.getEditableText().toString();
         String email = edtTextEmail.getEditableText().toString();
-        int rate = 3;
+        String thisGrade = grade;
 
-        long newId = myDb.insertRow(name, email, rate);
+        float rate = mRate.getRating();
 
-        String thisEntry = "Record " + newId + " Name: " + name + " Email: " + email + " Arbitrary rating: " + rate;
-        Log.v("Hey billyyy", "" + thisEntry);
+        long newId = myDb.insertRow(name, email, thisGrade, rate);
+
+        String thisEntry = "Record " + newId + " Name: " + name + " Email: " + email + " Grade: " + grade + " Arbitrary rating: " + rate;
+        Log.v("Hey billyyy! ", "" + thisEntry);
 
         // Query for the record we just added.
         // Use the ID:
         Cursor cursor = myDb.getRow(newId);
-        //displayRecordSet(cursor);
+        displayRecordSet(cursor);
     }
 
+
     //this is a test
-    /*private void displayText(String message) {
+   /* private void displayText(String message) {
         TextView textView = (TextView) findViewById(R.id.textDisplay);
         textView.setText(message);
-    }
+    }*/
 
     public void displayRecordSet(Cursor cursor) {
         String message = "";
@@ -153,15 +173,17 @@ public class EmailScreen extends Activity{
         if (cursor.moveToFirst()) {
             do {
                 // Process the data:
-                int id = cursor.getInt(COL_ROWID);
+                int id = cursor.getInt(DBAdapter.COL_ROWID);
                 String name = cursor.getString(DBAdapter.COL_NAME);
                 String email = cursor.getString(DBAdapter.COL_EMAIL);
+                String grade = cursor.getString(DBAdapter.COL_GRADE);
                 int rating = cursor.getInt(DBAdapter.COL_RATING);
 
                 // Append data to the message:
                 message += "id=" + id
                         +", name=" + name
                         +", email=" + email
+                        +", grade=" + grade
                         +", rating=" + rating
                         +"\n";
             } while(cursor.moveToNext());
@@ -172,7 +194,6 @@ public class EmailScreen extends Activity{
         // Close the cursor to avoid a resource leak.
         cursor.close();
 
-        displayText(message);
-    }*/
-
+        //displayText(message);
+    }
 }

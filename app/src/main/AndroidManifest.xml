@@ -8,20 +8,24 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.INTERNET" />
         <uses-feature android:name="android.hardware.camera2"
             android:required="true"/>
-        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EmailScreen" android:label="Email"> </activity>
-        <activity android:name=".SeeRecords" android:label="Records"> </activity>
+        <activity android:name=".EmailScreen" android:label="Email"
+                  android:windowSoftInputMode="stateHidden"> </activity>
+        <activity android:name=".Schedule" android:label="Records"> </activity>
         <activity android:name=".CameraAPI" android:label="Camera"> </activity>
     </application>
 
